@@ -2,9 +2,9 @@ services:
   - type: web
     name: news-alert-app
     env: python
-    plan: free   # Usa el plan gratuito
+    plan: free
     buildCommand: pip install --upgrade pip && pip install -r requirements.txt
-    startCommand: python -m uvicorn news_alert_app.backend.main:app --host 0.0.0.0 --port $PORT --ws websockets --http h11
+    startCommand: python -m uvicorn backend.main:app --host 0.0.0.0 --port $PORT --ws websockets --http h11
     envVars:
       - key: PYTHON_VERSION
         value: 3.11
