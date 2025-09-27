@@ -295,8 +295,23 @@
 
             const sum = document.createElement('div');
             sum.className = 'alert-summary';
-            const src = evt.domain ? `Fuente: ${evt.domain}` : '';
-            sum.textContent = [src, (evt.summary||'')].filter(Boolean).join(' — ');
+
+            if(evt.domain && evt.url){
+              const srcLink = document.createElement('a');
+              srcLink.href = evt.url;
+              srcLink.target = "_blank";
+              srcLink.rel = "noopener noreferrer";
+              srcLink.textContent = `Fuente: ${evt.domain}`;
+              sum.appendChild(srcLink);
+            } else if(evt.domain){
+              sum.textContent = `Fuente: ${evt.domain}`;
+            }
+
+            if(evt.summary){
+              if(sum.textContent) sum.appendChild(document.createTextNode(' — ' + evt.summary));
+              else sum.textContent = evt.summary;
+            }
+
 
             const meta = document.createElement('div');
             meta.className = 'alert-meta';
