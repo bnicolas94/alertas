@@ -6,8 +6,21 @@ from pathlib import Path
 from typing import Dict, List, Set
 
 from fastapi import FastAPI, WebSocket, WebSocketDisconnect
-from fastapi.responses import FileResponse
+from fastapi.responses import FileResponse, PlainTextResponse
 from fastapi.staticfiles import StaticFiles
+from fastapi import FastAPI
+
+app = FastAPI()
+
+@app.get("/", response_class=PlainTextResponse)
+async def root():
+    return "OK"
+
+@app.head("/", response_class=PlainTextResponse)
+async def root_head():
+    # Solo devuelve el status 200 sin body
+    return ""
+
 
 from .news_poller import poll_news
 
